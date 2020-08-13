@@ -121,8 +121,15 @@ def CCWM_Calc(OPR, DPR):
 	CCWM = OPR - DPR
 	return (CCWM)
 
+def ask_user_inputs():
+	print("API Version for OPR, DPR, and CCWM Calculation")
+	event_key = input("Please enter an event key (example: 2019abca):		")
+	return event_key
+
 def main():
-	matches_json = fetch_json('https://www.thebluealliance.com/api/v3/event/2019abca/matches')
+	event_key = ask_user_inputs()
+	#matches_json = fetch_json('https://www.thebluealliance.com/api/v3/event/2019abca/matches')
+	matches_json = fetch_json('https://www.thebluealliance.com/api/v3/event/%s/matches' % (event_key))
 	num_of_teams = find_num_of_teams(matches_json)
 	print ("Number of Teams:   ", num_of_teams)
 	num_of_alliances = find_num_of_alliances(matches_json)
