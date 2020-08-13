@@ -16,10 +16,11 @@ def find_num_of_teams(json_file):
 	allteams = []
 	for match in json_file:
 		#teamcount += 1
-		for x in range(0,3):
-			allteams.append(match["alliances"]["red"]["team_keys"][x][3:])
-		for y in range(0,3):
-			allteams.append(match["alliances"]["blue"]["team_keys"][y][3:])
+		if (match["comp_level"]=="qm"):
+			for x in range(0,3):
+				allteams.append(match["alliances"]["red"]["team_keys"][x][3:])
+			for y in range(0,3):
+				allteams.append(match["alliances"]["blue"]["team_keys"][y][3:])
 	teams = list(set(allteams))
 	teams.sort()
 	return (len(teams))
@@ -30,7 +31,8 @@ def find_num_of_teams(json_file):
 def find_num_of_alliances(json_file): 
 	matchcount=0
 	for match in json_file:
-		matchcount += 1
+		if (match["comp_level"]=="qm"):
+			matchcount += 1
 	alliancecount = (matchcount) * 2
 	return(alliancecount)
 

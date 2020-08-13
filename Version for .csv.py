@@ -98,28 +98,6 @@ def OPR_and_DPR_Calc(initmatrixresults):
 	final_right_side = inverse_left_copy.dot(right_side)
 	return ([teams, final_right_side])
  
-""""
-def DPRCalc(initmatrixresults):	
-#since the number of matches (represents the number of equations) is greater than the number of teams in the event (represents the variables), overdetermined
-
-	M_array = initmatrixresults[0]
-	#since the initmatrix() function is being passed in, the individual parts of the list that initmatrix() returns, represents M_array and the s_array
-	s_array = initmatrixresults[1]
-	teams = initmatrixresults[2]
-
-	transposed = M_array.transpose()
-	transposed_copy = transposed
-	left_side = transposed.dot(M_array)
-	#print(isSquare(left_side))
-	#print(np.linalg.det(left_side))			#this just gives the determinant of the matrix for debugging
-	#inverse_M = np.linalg.inv(M_array)
-	inverse_left = np.linalg.inv(left_side)
-	inverse_left_copy = inverse_left
-
-	right_side = transposed_copy.dot(s_array)
-	final_right_side = inverse_left_copy.dot(right_side)
-	return (final_right_side)
-"""
 
 def display(OPRResults, DPRResults):
 	teams = OPRResults[0]
@@ -136,14 +114,23 @@ def display(OPRResults, DPRResults):
 	print
 	#print "(Rows,Columns)", "			", final_right_side.shape					#to verify 
 
+def ask_user_inputs():
+	print("API Version for OPR, DPR, and CCWM Calculation")
+	print("The .csv file should be in the same directory as your this file.")
+	print("The .csv file should contain the information of the matches of the desired event.")
+	csv_filename = input("Please enter the filename of the .csv file  (example: 2019copy.csv):		")
+	return csv_filename
 
 def main():
-	f = open('2019copy.csv')		#.csv file
+	csv_filename = ask_user_inputs()
+	f = open(csv_filename)
+	#f = open('2019copy.csv')		#.csv file
 	csv_f = csv.reader(f)		
 	
 	Prep = preparation(csv_f)
-	print("Num of Alliances ", Prep[0])#number of alliances
-	print("Num of Teams     ", Prep[1]) #number of teams
+	print("Num of Teams:     ", Prep[1]) #number of teams
+	print("Num of Alliances: ", Prep[0])#number of alliances
+	
 	print()
 	OPR_Results = OPR_and_DPR_Calc(initmatrix(Prep, "OPR"))
 	DPR_Results = OPR_and_DPR_Calc(initmatrix(Prep, "DPR"))
