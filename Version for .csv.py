@@ -115,11 +115,19 @@ def display(OPRResults, DPRResults):
 	#print "(Rows,Columns)", "			", final_right_side.shape					#to verify 
 
 def ask_user_inputs():
+	"""
 	print("API Version for OPR, DPR, and CCWM Calculation")
 	print("The .csv file should be in the same directory as your this file.")
 	print("The .csv file should contain the information of the matches of the desired event.")
+	
 	csv_filename = input("Please enter the filename of the .csv file  (example: 2019copy.csv):		")
 	return csv_filename
+  """
+	import argparse
+	parser = argparse.ArgumentParser(description='Using .csv file containing data of the matches of the desired event in order to find OPR,DPR,CCWM. The .csv file should be located in the same directory as this program file.')
+	parser.add_argument('csv_filename', type=str, help='Input .csv filename')
+	args = parser.parse_args()
+	return (args.csv_filename)
 
 def main():
 	csv_filename = ask_user_inputs()

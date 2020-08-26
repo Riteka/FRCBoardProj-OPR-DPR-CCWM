@@ -124,9 +124,18 @@ def CCWM_Calc(OPR, DPR):
 	return (CCWM)
 
 def ask_user_inputs():
+	"""
 	print("API Version for OPR, DPR, and CCWM Calculation")
 	event_key = input("Please enter an event key (example: 2019abca):		")
 	return event_key
+	"""
+
+	import argparse
+	parser = argparse.ArgumentParser(description="Access Blue Alliance API match data for the desired event in order to find OPR, DPR, CCWM. The input should be an event key (example: 2019abca).")
+	parser.add_argument('event_key', type=str, help="Input event key (example: 2019abca)")
+	args = parser.parse_args()
+	return (args.event_key)
+
 
 def main():
 	event_key = ask_user_inputs()
